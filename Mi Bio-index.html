@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bio Profesional - Patricio Ferrer de Frankenberg</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* --- VARIABLES --- */
+        :root {
+            --bg-body: #e5e5e5;
+            --bg-container: #FDFCF8;
+            --bg-card: #fff;
+            --text-main: #002349;
+            --border-color: #AD9257;
+            --header-bg: #002349; 
+            --nav-bg: #f4f1ea;
+            --main-bg: #fff;
+            --footer-bg: #002349;
+            --section-bg: #ffffff;
+            --shadow-deep: 0 20px 40px rgba(0, 0, 0, 0.2);
+            --shadow-gold: 0 15px 30px rgba(173, 146, 87, 0.3);
+            --hover-exp: #f0f4f8; 
+            --hover-cert: #fffcf5;
+            --hover-fases: #002349;
+        }
+
+        body.dark-mode {
+            --bg-body: #0a0a0a;
+            --bg-container: #151515;
+            --bg-card: #1c1c1c;
+            --text-main: #AD9257;
+            --border-color: #444;
+            --header-bg: #001226;
+            --nav-bg: #1c1c1c;
+            --main-bg: #151515;
+            --footer-bg: #000;
+            --section-bg: #222;
+            --shadow-deep: 0 20px 45px rgba(0, 0, 0, 0.6);
+            --shadow-gold: 0 15px 30px rgba(173, 146, 87, 0.15);
+            --hover-exp: #001f3f;
+            --hover-cert: #2a2510;
+            --hover-fases: #AD9257;
+        }
+
+        body { 
+            font-family: 'Playfair Display', serif; 
+            background-color: var(--bg-body); 
+            color: var(--text-main);
+            padding: 50px 20px; 
+            display: flex; 
+            justify-content: center; 
+            margin: 0;
+            overflow-x: hidden;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .container { 
+            width: 100%; 
+            max-width: 800px; 
+            background-color: var(--bg-container); 
+            padding: 30px;
+            border-radius: 4px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            position: relative;
+            z-index: 10;
+            border: 1px solid var(--border-color);
+        }
+
+        header, nav, main, footer { 
+            border: 1px solid var(--border-color); 
+            margin-bottom: 30px; 
+            padding: 25px; 
+            border-radius: 2px; 
+            background-color: var(--bg-card);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); 
+            transition: all 0.3s ease;
+        }
+
+        header:hover, nav:hover, main:hover, footer:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-deep);
+        }
+
+        header { background-color: var(--header-bg); text-align: center; color: #AD9257; border-bottom: 5px solid #AD9257; } 
+        header h1 { letter-spacing: 5px; text-transform: uppercase; font-weight: 700; margin-bottom: 10px; }
+        header p { color: #fff; font-style: italic; letter-spacing: 1px; }
+
+        nav { background-color: var(--nav-bg); border-left: 5px solid var(--border-color); }
+        main { background-color: var(--main-bg); padding: 15px; border: none; } 
+        footer { background-color: var(--footer-bg); text-align: center; color: #AD9257; letter-spacing: 3px; font-size: 0.8rem; }
+
+        section { 
+            border: 1px solid #eee; 
+            margin: 15px 0; 
+            padding: 20px; 
+            background-color: var(--section-bg); 
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
+        } 
+
+        h2 { font-variant: small-caps; letter-spacing: 2px; border-bottom: 1px solid rgba(173, 146, 87, 0.2); padding-bottom: 5px; }
+
+        #expertise:hover { background-color: var(--hover-exp); border-left: 10px solid var(--header-bg); transform: translateY(-10px) translateX(5px); box-shadow: var(--shadow-deep); z-index: 20; position: relative; }
+        #certificaciones:hover { background-color: var(--hover-cert); border-color: var(--border-color); transform: translateY(-10px); box-shadow: var(--shadow-gold); z-index: 20; position: relative; }
+        #fases:hover { background-color: var(--hover-fases); color: #AD9257; padding-left: 35px; transform: translateY(-10px); box-shadow: var(--shadow-deep); z-index: 20; position: relative; }
+
+        ul, ol { line-height: 1.8; font-size: 1.05rem; }
+        a { color: var(--header-bg); text-decoration: underline; font-weight: bold; }
+        body.dark-mode a { color: var(--border-color); }
+
+        /* --- SIDEBAR PANEL --- */
+        .sidebar-panel { position: fixed; top: 15vh; background-color: var(--bg-card); border: 1px solid var(--border-color); z-index: 1000; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .sidebar-izq { left: -52px; width: 60px; display: flex; flex-direction: column; gap: 20px; padding: 25px 5px; border-radius: 0 5px 5px 0; }
+        .sidebar-izq:hover { left: 0; }
+        .sidebar-der { right: -210px; width: 200px; border-radius: 5px 0 0 5px; padding: 20px; }
+        .sidebar-der:hover { right: 0; }
+
+        .tool-item { display: flex; align-items: center; gap: 12px; padding: 10px; cursor: pointer; border-bottom: 1px solid #f0f0f0; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+        .tool-item:hover { background-color: var(--header-bg); color: #fff; }
+
+        .social-link { cursor: pointer; display: block; text-align: center; }
+        .social-link img { transition: transform 0.3s ease; }
+        .social-link:hover img { transform: scale(1.1); }
+
+        /* --- MODAL CONTACTO --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 35, 73, 0.85);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background-color: var(--bg-container);
+            margin: 5% auto;
+            padding: 40px;
+            border: 2px solid var(--border-color);
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: var(--shadow-deep);
+            color: var(--text-main);
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 30px;
+            cursor: pointer;
+            color: var(--border-color);
+        }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: bold; }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-main);
+            font-family: 'Playfair Display', serif;
+            box-sizing: border-box;
+        }
+
+        /* --- SPINNER & BOTÓN --- */
+        .btn-submit {
+            background-color: var(--header-bg);
+            color: #AD9257;
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50px;
+        }
+
+        .btn-submit:hover { background-color: #AD9257; color: #002349; }
+        .btn-submit:disabled { opacity: 0.8; cursor: wait; }
+
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(173, 146, 87, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--border-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* --- MENSAJES DE ESTADO --- */
+        [data-fs-success], [data-fs-error] {
+            display: none;
+            text-align: center;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            border-radius: 2px;
+            font-weight: bold;
+        }
+        [data-fs-success] { background: rgba(46, 204, 113, 0.1); color: #27ae60; border: 1px solid #2ecc71; }
+        [data-fs-error] { background: rgba(231, 76, 60, 0.1); color: #c0392b; border: 1px solid #e74c3c; }
+
+    </style>
+
+    <script>
+      window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+    </script>
+    <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+
+</head>
+<body>
+
+    <aside class="sidebar-panel sidebar-izq">
+        <a href="https://www.linkedin.com/in/patricio-ferrer/" target="_blank" class="social-link" title="LinkedIn">
+            <img src="https://cdn.simpleicons.org/linkedin/002349" alt="LinkedIn" style="width: 32px;">
+        </a>
+        <a href="https://wa.me/TUNUMERO" target="_blank" class="social-link" title="WhatsApp">
+            <img src="https://cdn.simpleicons.org/whatsapp/25D366" alt="WhatsApp" style="width: 32px;">
+        </a>
+        <div class="social-link" title="Formulario de Contacto" id="btn-open-form">
+            <img src="https://cdn.simpleicons.org/maildotru/AD9257" alt="Formulario" style="width: 32px;">
+        </div>
+    </aside>
+
+    <aside class="sidebar-panel sidebar-der">
+        <h3 style="text-align:center; font-size: 0.7rem; letter-spacing: 2px; border-bottom: 1px solid #AD9257; margin-bottom: 10px;">EXECUTIVE MENU</h3>
+        <div class="tool-item" id="dark-mode-toggle">🌙 <span>Modo Oscuro</span></div>
+        <div class="tool-item" onclick="window.print()">🖨️ <span>Imprimir Dossier</span></div>
+    </aside>
+
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="btn-close-modal">&times;</span>
+            <h2 style="text-align: center; margin-top: 0;">Protocolo de Contacto</h2>
+            <p style="text-align: center; font-size: 0.9rem; font-style: italic; margin-bottom: 25px;">Tras validar el envío, se abrirá mi Dossier Ejecutivo en una nueva pestaña.</p>
+            
+            <div data-fs-success>✔ Protocolo validado. El dossier se está abriendo automáticamente.</div>
+            <div data-fs-error>✘ Error de sistema. Por favor, intente nuevamente.</div>
+
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Nombre y Apellido</label>
+                    <input type="text" id="name" name="name" required data-fs-field>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Corporativo</label>
+                    <input type="email" id="email" name="email" required data-fs-field>
+                </div>
+                <div class="form-group">
+                    <label for="message">Asunto / Proyecto</label>
+                    <textarea id="message" name="message" rows="4" required data-fs-field></textarea>
+                </div>
+                <button type="submit" class="btn-submit" data-fs-submit-btn id="btn-submit-container">
+                    <span class="btn-text">Enviar Requerimiento</span>
+                    <div class="spinner" id="btn-spinner"></div>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Patricio Ferrer de Frankenberg</h1>
+            <p>Program & Project Manager | ICT Solutions</p>
+            <p style="font-size: 0.9rem;">Business Transformation | ERP & SAP Delivery | PMP</p>
+            <small style="color: #AD9257; letter-spacing: 2px;">AUSTRALIA | LATAM & APAC</small>
+        </header>
+
+        <nav>
+            <h2 style="margin-top: 0;">Propuesta de Valor</h2>
+            <p>Líder estratégico en la ejecución de programas complejos de TI y transformación organizacional. Especialista en despliegue de soluciones ERP/SAP bajo estándares internacionales de calidad.</p>
+        </nav>
+
+        <main>
+            <section id="expertise">
+                <h2>Expertise de Gestión</h2>
+                <ul>
+                    <li><strong>Program Delivery:</strong> Gestión de ciclo de vida completo en entornos ICT.</li>
+                    <li><strong>Strategic Transformation:</strong> Alineación de procesos de negocio con SAP/Oracle.</li>
+                    <li><strong>Global Leadership:</strong> Liderazgo de stakeholders en regiones LATAM y APAC.</li>
+                </ul>
+            </section>
+
+            <section id="certificaciones">
+                <h2>Certificaciones y Formación</h2>
+                <ul>
+                    <li><strong>Project Management Professional (PMP)®</strong> - PMI.</li>
+                    <li>Especialización en Transformación Digital a gran escala.</li>
+                    <li>Liderazgo Estratégico en Entornos Ágiles.</li>
+                </ul>
+            </section>
+
+            <section id="fases">
+                <h2>Trayectoria Profesional</h2>
+                <ol>
+                    <li>Consolidación Técnica en Soluciones ICT.</li>
+                    <li>Transición a Program & Project Management.</li>
+                    <li>Liderazgo en Transformación de Negocios Globales.</li>
+                    <li>Dirección de Proyectos Internacionales (Australia / APAC).</li>
+                </ol>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 - PATRICIO FERRER DE FRANKENBERG | EXECUTIVE PORTFOLIO</p>
+        </footer>
+    </div>
+
+    <script>
+        // --- MODO OSCURO ---
+        const darkModeBtn = document.getElementById('dark-mode-toggle');
+        if (localStorage.getItem('theme') === 'dark') { document.body.classList.add('dark-mode'); }
+        darkModeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        });
+
+        // --- LÓGICA MODAL ---
+        const modal = document.getElementById("contactModal");
+        const btnOpen = document.getElementById("btn-open-form");
+        const btnClose = document.getElementById("btn-close-modal");
+        
+        btnOpen.onclick = () => modal.style.display = "block";
+        btnClose.onclick = () => { modal.style.display = "none"; resetUI(); };
+        window.onclick = (e) => { if (e.target == modal) { modal.style.display = "none"; resetUI(); } };
+
+        function resetUI() {
+            document.querySelector('[data-fs-success]').style.display = 'none';
+            document.querySelector('[data-fs-error]').style.display = 'none';
+            document.getElementById('contactForm').style.display = 'block';
+            document.getElementById('btn-spinner').style.display = 'none';
+            document.querySelector('.btn-text').style.display = 'block';
+        }
+
+        // --- INICIALIZACIÓN FORMSPREE CON REDIRECCIÓN A PDF ---
+        document.addEventListener('DOMContentLoaded', () => {
+            formspree('initForm', { 
+                formElement: '#contactForm', 
+                formId: 'mpqoropg',
+                onFetch: () => {
+                    // Activar Spinner
+                    document.getElementById('btn-spinner').style.display = 'block';
+                    document.querySelector('.btn-text').style.display = 'none';
+                },
+                onSuccess: (data) => {
+                    // 1. Ocultar formulario
+                    document.getElementById('contactForm').style.display = 'none';
+                    
+                    // 2. ABRIR EL PDF DESDE GITHUB (LINK CONFIRMADO)
+                    window.open('https://raw.githubusercontent.com/patrickAUS2021/executive-dossier/main/Executive%20Dossier%20-%20Patricio%20FdF.pdf', '_blank');
+
+                    // 3. Cerrar el modal después de mostrar el éxito por 5 segundos
+                    setTimeout(() => {
+                        modal.style.display = "none";
+                        resetUI();
+                        document.getElementById('contactForm').reset();
+                    }, 5000);
+                },
+                onError: () => {
+                    // Restaurar botón si hay error de red
+                    document.getElementById('btn-spinner').style.display = 'none';
+                    document.querySelector('.btn-text').style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
